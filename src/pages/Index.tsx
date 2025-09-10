@@ -1,12 +1,32 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import { Navigation } from "@/components/Navigation";
+import { LandingPage } from "@/components/LandingPage";
+import { WasteScanner } from "@/components/WasteScanner";
+import { Dashboard } from "@/components/Dashboard";
+import { RewardsPage } from "@/components/RewardsPage";
 
 const Index = () => {
+  const [currentView, setCurrentView] = useState("home");
+
+  const renderCurrentView = () => {
+    switch (currentView) {
+      case "home":
+        return <LandingPage onGetStarted={() => setCurrentView("scan")} />;
+      case "scan":
+        return <WasteScanner />;
+      case "dashboard":
+        return <Dashboard />;
+      case "rewards":
+        return <RewardsPage />;
+      default:
+        return <LandingPage onGetStarted={() => setCurrentView("scan")} />;
+    }
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-background">
+      <Navigation currentView={currentView} onViewChange={setCurrentView} />
+      {renderCurrentView()}
     </div>
   );
 };
