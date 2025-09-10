@@ -14,7 +14,141 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      collection_history: {
+        Row: {
+          collected_date: string
+          collected_time: string | null
+          collection_area: string | null
+          created_at: string
+          id: string
+          user_id: string
+          waste_type: string
+          weight_collected_kg: number | null
+        }
+        Insert: {
+          collected_date: string
+          collected_time?: string | null
+          collection_area?: string | null
+          created_at?: string
+          id?: string
+          user_id: string
+          waste_type: string
+          weight_collected_kg?: number | null
+        }
+        Update: {
+          collected_date?: string
+          collected_time?: string | null
+          collection_area?: string | null
+          created_at?: string
+          id?: string
+          user_id?: string
+          waste_type?: string
+          weight_collected_kg?: number | null
+        }
+        Relationships: []
+      }
+      collection_schedules: {
+        Row: {
+          area: string
+          created_at: string
+          id: string
+          notes: string | null
+          scheduled_date: string
+          scheduled_time: string
+          status: string
+          updated_at: string
+          user_id: string
+          waste_type: string
+        }
+        Insert: {
+          area: string
+          created_at?: string
+          id?: string
+          notes?: string | null
+          scheduled_date: string
+          scheduled_time: string
+          status?: string
+          updated_at?: string
+          user_id: string
+          waste_type: string
+        }
+        Update: {
+          area?: string
+          created_at?: string
+          id?: string
+          notes?: string | null
+          scheduled_date?: string
+          scheduled_time?: string
+          status?: string
+          updated_at?: string
+          user_id?: string
+          waste_type?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          eco_points: number
+          email: string | null
+          id: string
+          name: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          eco_points?: number
+          email?: string | null
+          id?: string
+          name?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          eco_points?: number
+          email?: string | null
+          id?: string
+          name?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      waste_records: {
+        Row: {
+          confidence_score: number | null
+          created_at: string
+          id: string
+          image_url: string | null
+          points_earned: number
+          user_id: string
+          waste_type: string
+          weight_kg: number
+        }
+        Insert: {
+          confidence_score?: number | null
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          points_earned: number
+          user_id: string
+          waste_type: string
+          weight_kg: number
+        }
+        Update: {
+          confidence_score?: number | null
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          points_earned?: number
+          user_id?: string
+          waste_type?: string
+          weight_kg?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

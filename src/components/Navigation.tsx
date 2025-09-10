@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Leaf, Camera, BarChart3, Gift, Menu, X } from "lucide-react";
+import { Leaf, Camera, BarChart3, Gift, Menu, X, Truck, LogOut } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
 
 interface NavigationProps {
   currentView: string;
@@ -9,13 +10,21 @@ interface NavigationProps {
 
 export const Navigation = ({ currentView, onViewChange }: NavigationProps) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user, signOut } = useAuth();
 
   const navItems = [
     { id: "home", label: "Home", icon: Leaf },
     { id: "scan", label: "Scan Waste", icon: Camera },
     { id: "dashboard", label: "Dashboard", icon: BarChart3 },
     { id: "rewards", label: "Rewards", icon: Gift },
+    { id: "collections", label: "Collections", icon: Truck },
   ];
+
+  const handleSignOut = async () => {
+    await signOut();
+    onViewChange("home");
+    setIsMobileMenuOpen(false);
+  };
 
   return (
     <nav className="bg-card border-b border-border shadow-gentle sticky top-0 z-50">
@@ -31,7 +40,7 @@ export const Navigation = ({ currentView, onViewChange }: NavigationProps) => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-1">
-            {navItems.map((item) => {
+            {user && navItems.map((item) => {
               const Icon = item.icon;
               return (
                 <Button
@@ -46,6 +55,27 @@ export const Navigation = ({ currentView, onViewChange }: NavigationProps) => {
                 </Button>
               );
             })}
+            
+            {!user ? (
+              <Button
+                variant="eco"
+                size="sm"
+                onClick={() => onViewChange("auth")}
+                className="flex items-center space-x-2"
+              >
+                <span>Sign In</span>
+              </Button>
+            ) : (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleSignOut}
+                className="flex items-center space-x-2"
+              >
+                <LogOut className="h-4 w-4" />
+                <span>Sign Out</span>
+              </Button>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -64,7 +94,7 @@ export const Navigation = ({ currentView, onViewChange }: NavigationProps) => {
         {isMobileMenuOpen && (
           <div className="md:hidden py-4 border-t border-border">
             <div className="flex flex-col space-y-2">
-              {navItems.map((item) => {
+              {user && navItems.map((item) => {
                 const Icon = item.icon;
                 return (
                   <Button
@@ -81,6 +111,28 @@ export const Navigation = ({ currentView, onViewChange }: NavigationProps) => {
                   </Button>
                 );
               })}
+              
+              {!user ? (
+                <Button
+                  variant="eco"
+                  onClick={() => {
+                    onViewChange("auth");
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="justify-start space-x-2 w-full"
+                >
+                  <span>Sign In</span>
+                </Button>
+              ) : (
+                <Button
+                  variant="ghost"
+                  onClick={handleSignOut}
+                  className="justify-start space-x-2 w-full"
+                >
+                  <LogOut className="h-4 w-4" />
+                  <span>Sign Out</span>
+                </Button>
+              )}
             </div>
           </div>
         )}
