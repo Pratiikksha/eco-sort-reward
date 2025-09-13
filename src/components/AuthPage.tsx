@@ -91,7 +91,7 @@ export const AuthPage = ({ onAuthSuccess }: AuthPageProps) => {
             <div className="p-2 bg-primary rounded-full">
               <Leaf className="h-6 w-6 text-primary-foreground" />
             </div>
-            <h1 className="text-2xl font-bold text-foreground">EcoSortX</h1>
+            <h1 className="text-2xl font-bold text-foreground">Sortify</h1>
           </div>
           <CardDescription className="text-muted-foreground">
             Join the smart waste sorting revolution
