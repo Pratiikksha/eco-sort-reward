@@ -35,7 +35,7 @@ export const Navigation = ({ currentView, onViewChange }: NavigationProps) => {
             <div className="p-2 bg-gradient-eco rounded-lg">
               <Leaf className="h-6 w-6 text-primary-foreground" />
             </div>
-            <span className="text-xl font-bold text-foreground">EcoSortX</span>
+            <span className="text-xl font-bold text-foreground">Sortify</span>
           </div>
 
           {/* Desktop Navigation */}
